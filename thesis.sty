@@ -1,0 +1,198 @@
+\ProvidesPackage{thesis}
+
+\RequirePackage{ctex}
+\RequirePackage{graphicx}
+\RequirePackage{footmisc}
+\RequirePackage{subfigure}
+\RequirePackage{subcaption}
+\RequirePackage{url}
+\RequirePackage{multirow}
+\RequirePackage{multicol}
+\RequirePackage{amsmath,amsthm}
+\RequirePackage{amssymb,amsfonts}
+\RequirePackage{booktabs}
+\RequirePackage{color}
+\RequirePackage{ccaption}
+\RequirePackage{float}
+\RequirePackage{fancyhdr}
+\RequirePackage{caption}
+\RequirePackage{stfloats}
+\RequirePackage{cuted}
+\RequirePackage{captionhack}
+\RequirePackage{gbt7714}
+\RequirePackage[dvipsnames]{xcolor} % 提供颜色设置的功能，`dvipsnames` 选项允许使用更多预定义的颜色名称。
+\RequirePackage{lipsum}
+\RequirePackage{zhlipsum}
+\RequirePackage{listings} % 用于在文档中插入代码块，并支持多种编程语言的语法高亮。
+
+%-------------------------全局设置------------------------------%
+\graphicspath{{figures/}}
+
+% 中文节号，如果不需要可以注释掉
+\RequirePackage{zhnumber}
+\renewcommand\thesection{\zhnum{section}}
+\renewcommand \thesubsection {\arabic{section}}
+\renewcommand\thesubsection{\zhnum{subsection}}
+\renewcommand \thesubsection {\arabic{subsection}}
+
+% 图片
+\renewcommand\figurename{图~}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+% 列表
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+% 表格
+\renewcommand{\labelenumi}{(\arabic{enumi})}
+
+% 缩进
+\setlength\parindent{2em}
+
+% 页眉
+\headevenname{\mbox{\quad} \hfill  \mbox{\zihao{-5}{ \hfill \themycourse  } \hspace {50mm} \mbox{\today}}}%
+\headoddname{\themyauthor \themystudentid \hfill \themycourse}%
+
+
+%-------------------------信息设置------------------------------%
+\newcommand{\mytitle}[1]{\def\themytitle{#1}}
+\newcommand{\myauthor}[1]{\def\themyauthor{#1}}
+\newcommand{\mystudentid}[1]{\def\themystudentid{#1}}
+\newcommand{\mycourse}[1]{\def\themycourse{#1}}
+\newcommand{\myschool}[1]{\def\themyschool{#1}}
+\newcommand{\myteacher}[1]{\def\themyteacher{#1}}
+
+%-------------------------封面设置------------------------------%
+\newcommand{\setpage}[1]{% 封面
+    \begin{titlepage}  
+       \vspace*{-3cm}  
+          
+        \begin{figure}[h]  
+            \centering  
+            \includegraphics[width=0.65\linewidth]{figures/char.png}  
+        \end{figure}  
+          
+        \begin{figure}[h]  
+            \centering  
+            \includegraphics[width=0.48\linewidth]{logo.png}  
+        \end{figure}  
+        \vspace{-0.5cm}  
+        \begin{center}  
+            \Huge{\textbf{\themycourse}\\  
+            \textbf{\themytitle}}  
+        \end{center}  
+        \vspace*{1cm}  
+        \begin{center}  
+            \Large  
+            \vspace{0.3cm}  
+            \quad\ 姓\; 名 \ \ \underline{\makebox[220pt]{\themyauthor}}\\  
+            \vspace{0.3cm}  
+            \quad\ 学\; 号\ \ \underline{\makebox[220pt]{\themystudentid}}\\  
+            \vspace{0.3cm}  
+            \quad\ 学\; 院\ \ \underline{\makebox[220pt]{\themyschool}}\\  
+            \vspace{0.3cm}  
+            实验日期\ \ \underline{\makebox[220pt]{\today}}\\  
+            \vspace{0.3cm}  
+            指导老师\ \ \underline{\makebox[220pt]{\themyteacher}}\\  
+        \end{center}  
+    \end{titlepage}  
+
+    \hyphenpenalty=50000
+    \newcommand\mysmall{\@setfontsize\mysmall{7}{9.5}}
+    \newenvironment{tablehere}
+    {\def\@captype{table}}
+    
+    \let\temp\footnote
+    \renewcommand\footnote[1]{\temp{\zihao{-5}##1}}
+    \pagestyle{CjCheadings}
+}
+
+
+
+%-------------------------框架设置------------------------------%
+%% 摘要设置
+\newcommand{\myabstract}[1]{
+  \zihao{5}{
+    \setlength{\baselineskip}{16pt}\selectfont{
+      \noindent {\heiti 摘\quad 要\quad }#1
+      \par
+    }
+  }
+}
+%% 关键词设置
+\newcommand{\keyword}[1]{
+    \zihao{5}{\noindent
+    {\heiti 关键词 \quad }{#1}
+    }
+}
+%% 标题设置
+\newcommand{\Title}[3]{
+    {
+      \centering
+      \vspace{11mm}
+      {\zihao{2} \heiti #1} % 使用#1代表标题
+      \vskip 5mm
+      {\zihao{4}\fangsong #2 \quad \zihao{4}\fangsong #3} % 使用#2代表作者姓名，#3代表学号
+      \vspace{5mm}
+      \vskip 5mm
+    }
+}
+
+%-------------------------参考文献------------------------------%
+\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}} %定义了一个新的引用命令 \upcite，将引用标记显示为上标形式。
+
+\renewcommand{\bibsection}{} % 这个命令移除了参考文献部分的标题。
+\makeatletter
+\renewcommand{\@biblabel}[1]{[#1]\hfill}
+\makeatother
+
+% 脚注
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\setcounter{footnote}{0}
+\renewcommand\footnotelayout{\zihao{5-}}
+
+\newcommand{\reference}{
+    \nocite{*}
+    \centerline
+    {\zihao{5}\textsf{参~考~文~献}}
+    \zihao{5-} \addtolength{\itemsep}{-1em}
+    \vspace {1.5mm}
+    \bibliographystyle{gbt7714-numerical}
+    \bibliography{ref.bib}
+}
+%-------------------------代码设置------------------------------%
+\lstset{
+    language=Tex, % 设置语言
+    basicstyle=\ttfamily, % 设置字体族
+    breaklines=true, % 自动换行
+    keywordstyle=\bfseries\color{NavyBlue}, % 设置关键字为粗体，颜色为 NavyBlue
+    morekeywords={}, % 设置更多的关键字，用逗号分隔
+    emph={self}, % 指定强调词，如果有多个，用逗号隔开
+    emphstyle=\bfseries\color{Rhodamine}, % 强调词样式设置
+    commentstyle=\itshape\color{black!50!white}, % 设置注释样式，斜体，浅灰色
+    stringstyle=\bfseries\color{PineGreen!90!black}, % 设置字符串样式
+    columns=flexible,
+    numbers=left, % 显示行号在左边
+    numbersep=2em, % 设置行号的具体位置
+    numberstyle=\footnotesize, % 缩小行号
+    frame=shadowbox, % 边框
+    rulesepcolor=\color{red!20!green!20!blue!20}, 
+    % framesep=1em % 设置代码与边框的距离
+    showstringspaces=false
+}
+
+%-------------------------question 问题环境
+\RequirePackage{framed}
+\definecolor{shadecolor}{RGB}{241, 241, 255}
+% \newtheorem{problem}{Question.}[section]
+\newcounter{problemname}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{Question.\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答.}}{\par}
+
+
+
+
+
+
+
+
+
